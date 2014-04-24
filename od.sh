@@ -51,6 +51,7 @@ done
 
 echo "Deploying on OpenShift"
 echo "====================================="
-cd ./deploy
+cd ../
 git add . -A
 git commit -m "Deploy"
+git push
