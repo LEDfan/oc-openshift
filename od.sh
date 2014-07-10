@@ -7,11 +7,15 @@ echo "====================================="
 echo "Cleaning deploy directory"
 rm -rf ./deploy
 
-while getopts ":o::a:" opt; do
+while getopts ":n::o::a:" opt; do
 	case $opt in
-	    	o)
-	    		echo "[INSTALL] Cloning OpenShift App Repo: $OPTARG"
-			git clone $OPTARG ./deploy
+		n)
+			echo "[INSTALL] Creating OpenShift app with name: $OPTARG"
+			rhc create-app $OPTARG php-5.4 mysql-5.5
+			gitUrl=$(getGitUrl $OPTARG)
+			echo $gitUrl
+			exit 1
+			git clone $gitUrl deploy
 			;;
 		a)
 			echo "installing apps: $OPTARG"
@@ -58,3 +62,13 @@ git add --all
 git commit -m "Deploy"
 git push origin master
 
+##FUNCTIONS
+function getGitUrl(){
+	# $1 is the name of the application
+	rm -rf output
+	rhc show-app $1 >> output
+	line=$(grep '\<s.*t\>' output)
+	rm -rf output
+	url=${line:12}
+	echo $url;
+}
