@@ -24,7 +24,7 @@ echo "[INSTALL] Remove contents in deploy dir"
 rm -rf ./deploy/*
 
 echo "[INSTALL] Downloading ownCloud Core"
-git clone https://github.com/LEDfan/core master
+git clone https://github.com/owncloud/core master
 cd ./master
 git submodule update --init
 rm -rf 3rdparty/.git
