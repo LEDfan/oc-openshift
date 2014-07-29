@@ -24,9 +24,6 @@ echo "[INSTALL] Remove contents in deploy dir"
 rm -rf ./deploy/*
 
 echo "[INSTALL] Downloading ownCloud Core"
-#wget https://github.com/owncloud/core/archive/master.zip
-#unzip master.zip -d ./deploy
-#rm -rf master.zip
 git clone https://github.com/LEDfan/core master
 cd ./master
 git submodule update --init
@@ -35,13 +32,10 @@ cd ../
 cp -r ./master/.git
 mv ./master/* ./deploy
 
-
-
 echo "[INSTALL] Done!"
 
 echo "[APPS] Installing apps: ${apps[@]}"
 
-#mkdir -p ./deploy/apps #remove me
 
 cd ./deploy/apps
 for app in "${apps[@]}"
